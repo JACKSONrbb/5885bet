@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5885Bet - Plataforma</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background-color: #121212;
+      color: white;
+    }
+    header {
+      padding: 20px;
+      text-align: center;
+      background-color: #1f1f1f;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+    .saldo-area {
+      background-color: #1e1e1e;
+      padding: 20px;
+      text
