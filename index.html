@@ -1,124 +1,109 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Plataforma de Apostas</title>
-<style>
-  body { font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; }
-  h1, h2 { text-align: center; }
-  .hidden { display: none; }
-  input, button { padding: 8px; margin: 5px 0; width: 100%; }
-  button { cursor: pointer; }
-  #painelUsuario { border: 1px solid #ccc; padding: 10px; margin-top: 10px; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5885Bet - Plataforma</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background-color: #121212;
+      color: white;
+    }
+    header {
+      padding: 20px;
+      text-align: center;
+      background-color: #1f1f1f;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+    .saldo-area {
+      background-color: #1e1e1e;
+      padding: 20px;
+      text-align: center;
+    }
+    .saldo-area h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #bbb;
+    }
+    .saldo {
+      font-size: 2rem;
+      margin-top: 5px;
+      color: #00ff88;
+    }
+    .btn-recarregar {
+      margin-top: 15px;
+      background-color: #00ff88;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      color: #000;
+    }
+    .menu {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #1f1f1f;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      border-top: 1px solid #333;
+    }
+    .menu-item {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #ccc;
+    }
+    .menu-item.active {
+      color: #00ff88;
+    }
+    .icon {
+      font-size: 20px;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .container {
+      padding-bottom: 80px;
+    }
+  </style>
 </head>
 <body>
+  <header>5885Bet</header>
 
-<h1>Plataforma de Apostas</h1>
+  <div class="saldo-area">
+    <h2>Seu Saldo</h2>
+    <div class="saldo">R$ 0,00</div>
+    <button class="btn-recarregar">Recarregar</button>
+  </div>
 
-<div id="cadastroLogin">
-  <h2>Cadastro / Login</h2>
-  <input type="text" id="usuario" placeholder="Usuário" />
-  <input type="password" id="senha" placeholder="Senha" />
-  <button onclick="login()">Entrar / Cadastrar</button>
-  <p id="msgLogin"></p>
-</div>
+  <div class="container">
+    <!-- Conteúdo da home, apostas e outros irá aqui -->
+    <p style="text-align:center; padding: 20px; color: #888;">Página inicial em construção.</p>
+  </div>
 
-<div id="painel" class="hidden">
-  <h2>Bem-vindo, <span id="nomeUsuario"></span></h2>
-  <div>Saldo: R$ <span id="saldoUsuario">0.00</span></div>
-
-  <h3>Gerar Link de Pagamento (em breve)</h3>
-  <input type="number" id="valorPagamento" placeholder="Valor para depósito" min="1" step="0.01" />
-  <button disabled>Gerar Link PIX (em breve)</button>
-
-  <h3>Apostar</h3>
-  <input type="number" id="valorAposta" placeholder="Valor da aposta" min="1" step="0.01" />
-  <button onclick="fazerAposta()">Fazer Aposta</button>
-  <p id="msgAposta"></p>
-
-  <button onclick="logout()">Sair</button>
-</div>
-
-<script>
-  // Simulação simples usando LocalStorage para usuários e saldo
-  function getUsers() {
-    const users = localStorage.getItem('users');
-    return users ? JSON.parse(users) : {};
-  }
-  function saveUsers(users) {
-    localStorage.setItem('users', JSON.stringify(users));
-  }
-
-  let currentUser = null;
-
-  function login() {
-    const usuario = document.getElementById('usuario').value.trim();
-    const senha = document.getElementById('senha').value.trim();
-    const msg = document.getElementById('msgLogin');
-    if (!usuario || !senha) {
-      msg.textContent = 'Informe usuário e senha.';
-      return;
-    }
-    let users = getUsers();
-    if (!users[usuario]) {
-      // Cadastra novo usuário com saldo zero
-      users[usuario] = { senha: senha, saldo: 0 };
-      msg.textContent = 'Usuário criado com saldo R$0,00.';
-    } else {
-      if (users[usuario].senha !== senha) {
-        msg.textContent = 'Senha incorreta.';
-        return;
-      }
-      msg.textContent = 'Login realizado.';
-    }
-    saveUsers(users);
-    currentUser = usuario;
-    mostrarPainel();
-  }
-
-  function mostrarPainel() {
-    document.getElementById('cadastroLogin').classList.add('hidden');
-    document.getElementById('painel').classList.remove('hidden');
-    document.getElementById('nomeUsuario').textContent = currentUser;
-    atualizarSaldo();
-  }
-
-  function atualizarSaldo() {
-    const users = getUsers();
-    const saldo = users[currentUser].saldo;
-    document.getElementById('saldoUsuario').textContent = saldo.toFixed(2);
-  }
-
-  function fazerAposta() {
-    const valor = parseFloat(document.getElementById('valorAposta').value);
-    const msg = document.getElementById('msgAposta');
-    if (isNaN(valor) || valor <= 0) {
-      msg.textContent = 'Informe um valor válido para apostar.';
-      return;
-    }
-    const users = getUsers();
-    if (users[currentUser].saldo < valor) {
-      msg.textContent = 'Saldo insuficiente.';
-      return;
-    }
-    users[currentUser].saldo -= valor;
-    saveUsers(users);
-    atualizarSaldo();
-    msg.textContent = `Você apostou R$${valor.toFixed(2)}. Resultado em breve.`;
-  }
-
-  function logout() {
-    currentUser = null;
-    document.getElementById('cadastroLogin').classList.remove('hidden');
-    document.getElementById('painel').classList.add('hidden');
-    document.getElementById('usuario').value = '';
-    document.getElementById('senha').value = '';
-    document.getElementById('msgLogin').textContent = '';
-    document.getElementById('msgAposta').textContent = '';
-  }
-</script>
+  <div class="menu">
+    <div class="menu-item active">
+      <span class="icon">🏠</span>
+      Início
+    </div>
+    <div class="menu-item">
+      <span class="icon">🎲</span>
+      Apostas
+    </div>
+    <div class="menu-item">
+      <span class="icon">💰</span>
+      Carteira
+    </div>
+    <div class="menu-item">
+      <span class="icon">👤</span>
+      Perfil
+    </div>
+  </div>
 
 </body>
 </html>
